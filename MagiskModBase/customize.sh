@@ -116,35 +116,6 @@ testKernelSU()
     fi;
 }
 
-assertPixelRom()
-{
-	PixelTipsPattern="TipsPrebuilt*"
-	PixelTipsParent="/product/priv-app"
-
-  if ! find "$PixelTipsParent" -maxdepth 1 -name "$PixelTipsPattern" -print -quit | grep -q .; then
-  	ui_print 'Device does not seem to be a Pixel'
-  	ui_print 'phone, containing an original ROM.'
-
-    abort 'Installation aborted due to incompatibility'
-  fi
-}
-
-assert16QPR()
-{
-	if [ -z $(getprop ro.build.id | grep -e "BP[345]" -e "BD[345]") ]; then
-		ui_print 'This build is not compatible with'
-    ui_print 'your ROM. Please install the stable'
-    ui_print 'version 4.3.x instead'
-
-		abort 'Installation aborted due to incompatibility'
-  fi
-}
-
-
-assertPixelRom
-
-assert16QPR
-
 testKernelSU
 
 prepareSQL
